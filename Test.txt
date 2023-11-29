@@ -1,0 +1,52 @@
+
+Dưới đây là một số lệnh cơ bản trong Git, mà bạn sẽ sử dụng khi làm việc với GitHub. Hãy sử dụng Command Line hoặc Git Bash để nhập các lệnh này:
+
+git init
+
+Khởi tạo một kho lưu trữ Git mới trong thư mục hiện tại.
+git clone <url>
+
+Sao chép (clone) một kho lưu trữ từ URL (GitHub) về máy tính của bạn.
+git add <file>
+
+Thêm một tệp cụ thể vào chỉ mục (staging area) để chuẩn bị cho việc commit.
+git add . hoặc git add -A
+
+Thêm tất cả các tệp đã thay đổi vào chỉ mục.
+git commit -m "message"
+
+Commit (lưu trữ) các thay đổi đã thêm vào chỉ mục với một thông điệp mô tả.
+git status
+
+Xem trạng thái hiện tại của các tệp trong kho lưu trữ.
+git pull
+
+Kéo (pull) các thay đổi từ nhánh hiện tại của kho lưu trữ trên GitHub về máy của bạn.
+git push
+
+Đẩy (push) các thay đổi đã commit từ máy tính của bạn lên nhánh hiện tại trên GitHub.
+git branch
+
+Liệt kê tất cả các nhánh có sẵn trong kho lưu trữ.
+git branch <branch_name>
+
+Tạo một nhánh mới.
+git checkout <branch_name>
+
+Chuyển đến một nhánh khác.
+git merge <branch_name>
+
+Gộp các thay đổi từ một nhánh vào nhánh hiện tại.
+git log
+
+Xem lịch sử commit.
+git remote -v
+
+Xem danh sách các remote repository đã được cấu hình.
+git remote add origin <repository_url>
+
+Thêm một remote repository vào kho lưu trữ hiện tại.
+git pull origin <branch_name>
+
+Kéo (pull) các thay đổi từ nhánh hiện tại trên GitHub về máy tính của bạn.
+Lưu ý: Trước khi sử dụng các lệnh push hoặc pull, đảm bảo bạn đã thiết lập remote repository bằng cách sử dụng lệnh git remote add origin <repository_url> và đã đăng nhập vào tài khoản GitHub của bạn.
