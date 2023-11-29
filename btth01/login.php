@@ -1,3 +1,33 @@
+<?php
+session_start();
+
+// Kiểm tra nếu đã đăng nhập, chuyển hướng đến trang chính
+if (isset($_SESSION['username'])) {
+    header("Location: admin/index.php");
+    exit();
+}
+
+include('config.php');
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows == 1) {
+        // Đăng nhập thành công, lưu thông tin đăng nhập vào session
+        $_SESSION['username'] = $username;
+        header("Location: admin/index.php");
+        exit();
+    } else {
+        // Đăng nhập thất bại
+        $error = "Tên đăng nhập hoặc mật khẩu không đúng.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,15 +82,15 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form form method="post" action="login.php">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="txtUser"><i class="fas fa-user"></i></span>
-                                <input type="text" class="form-control" placeholder="username" >
+                                <input type="text" class="form-control" placeholder="username" name="username">
                             </div>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="txtPass"><i class="fas fa-key"></i></span>
-                                <input type="text" class="form-control" placeholder="password" >
+                                <input type="text" class="form-control" placeholder="password" name="password" >
                             </div>
                             
                             <div class="row align-items-center remember">
