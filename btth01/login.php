@@ -10,23 +10,36 @@ if (isset($_SESSION['username'])) {
 include('config.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-    $result = $conn->query($sql);
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    if ($result->num_rows == 1) {
-        // Đăng nhập thành công, lưu thông tin đăng nhập vào session
-        $_SESSION['username'] = $username;
-        header("Location: admin/index.php");
-        exit();
-    } else {
-        // Đăng nhập thất bại
-        $error = "Tên đăng nhập hoặc mật khẩu không đúng.";
+        $sql = "SELECT * FROM users WHERE username = :username AND password = :password";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':password', $password);
+
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($stmt->rowCount() == 1) {
+            // Đăng nhập thành công, lưu thông tin đăng nhập vào session
+            $_SESSION['username'] = $username;
+            header("Location: admin/index.php");
+            exit();
+        } else {
+            // Đăng nhập thất bại
+            $error = "Tên đăng nhập hoặc mật khẩu không đúng.";
+        }
+    } catch (PDOException $e) {
+        echo "Lỗi kết nối: " . $e->getMessage();
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
