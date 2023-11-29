@@ -1,16 +1,19 @@
-﻿create database BTTH01_CSE485
-use BTTH01_CSE485
+﻿CREATE DATABASE IF NOT EXISTS BTTH01_CSE485;
 
-CREATE TABLE tacgia(
-    ma_tgia int not null primary key,
-    ten_tgia varchar(100) not null,
-    hinh_tgia varchar(100) not null
+USE BTTH01_CSE485;
+
+CREATE TABLE tacgia (
+    ma_tgia INT NOT NULL PRIMARY KEY,
+    ten_tgia VARCHAR(100) NOT NULL,
+    hinh_tgia VARCHAR(100) NOT NULL
 );
-CREATE TABLE theloai(
-    ma_tloai int not null PRIMARY KEY,
-    ten_tloai varchar(50) not null
+
+CREATE TABLE theloai (
+    ma_tloai INT NOT NULL PRIMARY KEY,
+    ten_tloai VARCHAR(50) NOT NULL
 );
-CREATE TABLE baiviet (
+
+CREATE TABLE  baiviet (
     ma_bviet INT NOT NULL PRIMARY KEY,
     tieude VARCHAR(200) NOT NULL,
     ten_bhat VARCHAR(100) NOT NULL,
@@ -19,8 +22,11 @@ CREATE TABLE baiviet (
     noidung TEXT,
     ma_tgia INT NOT NULL,
     ngayviet DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    hinhanh VARCHAR(200)
+    hinhanh VARCHAR(200),
+    FOREIGN KEY (ma_tloai) REFERENCES theloai(ma_tloai),
+    FOREIGN KEY (ma_tgia) REFERENCES tacgia(ma_tgia)
 );
+
 INSERT INTO tacgia (ma_tgia, ten_tgia) VALUES (1, "Nhacvietplus");
 INSERT INTO tacgia (ma_tgia, ten_tgia) VALUES (2, "Sưu tầm");
 INSERT INTO tacgia (ma_tgia, ten_tgia) VALUES (3, "Sandy");
